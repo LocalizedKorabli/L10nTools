@@ -2,8 +2,8 @@ import json
 import os
 
 selection_desc = '''
-0.比对source.json和translated.json中的对象列表，将后者向前者覆盖为merged.json，并生成diff.json
-1.将source.json变为单行后输出到1line.json
+0.比对input/source.json和input/translated.json中的对象列表，将后者向前者覆盖为output/merged.json，并生成output/diff.json
+1.将input/source.json变为单行后输出到output/1line.json
 '''
 
 if not os.path.exists('input'):
