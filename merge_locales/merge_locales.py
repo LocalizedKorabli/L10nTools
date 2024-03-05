@@ -5,6 +5,13 @@ import re
 import polib
 
 
+def metadata(po_file: polib.POFile[polib.POEntry]):
+    po_file.metadata['Language-Team'] = 'LocalizedKorabli <localizedkorabli@outlook.com>'
+    for key in list(po_file.metadata):
+        if key.startswith('#-#-#-#-#'):
+            po_file.metadata.pop(key)
+
+
 def compare_lists(list0: list[str], list1: list[str]) -> bool:
     if len(list0) != len(list1):
         return False
@@ -54,6 +61,7 @@ elif action == "2":
             entry.msgstr = translation_dict_singular[entry.msgid]
         if entry.msgid_plural and entry.msgid_plural in translation_dict_plural:
             entry.msgstr_plural = translation_dict_plural.get(entry.msgid_plural)
+    metadata(source_po)
     source_po.save('output/merged.po')
 elif action == "3":
     new_po = polib.pofile('input/new.po')
@@ -79,6 +87,7 @@ elif action == "3":
     diff_change_file.save('output/diff_change.po')
 elif action == "4":
     source_po = polib.pofile('input/source.po')
+    print(source_po.metadata)
     for entry in source_po:
         if entry.msgid == "IDS_SSE_TEMPLATES_META":
             meta = json.loads(entry.msgstr)
