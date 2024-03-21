@@ -16,7 +16,8 @@ def compare_lists(list0: list[str], list1: list[str]) -> bool:
     if len(list0) != len(list1):
         return False
     for index in range(len(list0)):
-        if list0[index].lower() == list1[index].lower():
+        if list0[index].lower().replace(' ', '').replace('\n', '').replace('\r', '') == \
+                list1[index].lower().replace(' ', '').replace('\n', '').replace('\r', ''):
             continue
         else:
             return False
@@ -74,7 +75,8 @@ elif action == "3":
         if entry.msgid:
             if entry.msgid not in o_dict_singular:
                 diff_add_file.append(entry)
-            elif entry.msgstr.lower() != o_dict_singular[entry.msgid].lower():
+            elif entry.msgstr.lower().replace(' ', '').replace('\n', '').replace('\r', '') != \
+                    o_dict_singular[entry.msgid].lower().replace(' ', '').replace('\n', '').replace('\r', ''):
                 diff_change_file.append(entry)
 
         if entry.msgid_plural:
